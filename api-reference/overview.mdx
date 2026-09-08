@@ -1,0 +1,41 @@
+---
+title: API Reference
+description: Interactive reference for every TaskFlow API endpoint.
+---
+
+# API Reference
+
+The TaskFlow API reference is generated from the official OpenAPI specification. It documents the request parameters, authentication requirements, response schemas, and HTTP status codes for every endpoint.
+
+<Info>
+Use the **Try it** controls on endpoint pages to send requests to the live API. Enter your own API key when prompted. Never publish the challenge API key in this repository or in screenshots.
+</Info>
+
+## Base URL
+
+```text
+https://test-writechoice.onrender.com
+```
+
+## Authentication
+
+All endpoints require a Bearer API key:
+
+```http
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Endpoints
+
+### Projects
+
+- `POST /projects` — Create a project.
+
+### Tasks
+
+- `POST /tasks` — Create a task in an existing project.
+- `GET /projects/{project_id}/tasks` — List all tasks in a project.
+- `PATCH /tasks/{task_id}` — Update one or more task fields.
+- `DELETE /tasks/{task_id}` — Permanently delete a task.
+
+The generated endpoint pages below this section are the source of truth for request and response details.

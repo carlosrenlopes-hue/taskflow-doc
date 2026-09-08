@@ -1,0 +1,47 @@
+---
+title: Errors
+description: Understand HTTP errors returned by the TaskFlow API.
+---
+
+# Errors
+
+TaskFlow API uses standard HTTP status codes to indicate whether a request succeeded or failed.
+
+## Common status codes
+
+| Status | Meaning | Typical cause |
+| --- | --- | --- |
+| `400` | Bad Request | Missing or invalid request data. |
+| `401` | Unauthorized | API key is missing or invalid. |
+| `404` | Not Found | The requested project or task does not exist. |
+
+Errors use a consistent JSON structure:
+
+```json
+{
+  "error": "Not Found",
+  "message": "No project found with project_id 'abc123'."
+}
+```
+
+## 400 Bad Request
+
+A `400` response means the request data is invalid or incomplete.
+
+For example, creating a project without a valid `name` returns a `400` response.
+
+## 401 Unauthorized
+
+A `401` response means the request does not contain a valid API key.
+
+Check that the `Authorization` header uses the Bearer format:
+
+```http
+Authorization: Bearer YOUR_API_KEY
+```
+
+## 404 Not Found
+
+A `404` response means the resource identified by the request does not exist.
+
+For task creation, a common cause is using a `project_id` that does not belong to an existing project.

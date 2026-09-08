@@ -1,0 +1,68 @@
+---
+title: Tasks
+description: Create, track, update, and delete tasks.
+---
+
+# Tasks
+
+Tasks belong to projects. To create a task, you need a valid `project_id` from an existing project.
+
+## Task lifecycle
+
+New tasks start in the `pending` state.
+
+```text
+pending
+   │
+   ▼
+in_progress
+   │
+   ▼
+done
+```
+
+The API accepts these status values:
+
+| Status | Meaning |
+| --- | --- |
+| `pending` | The task has not been started. |
+| `in_progress` | The task is actively being worked on. |
+| `done` | The task has been completed. |
+
+## Create a task
+
+A task requires:
+
+- `project_id`
+- `title`
+
+`description` is optional.
+
+## Update a task
+
+Use `PATCH /tasks/{task_id}` to change one or more fields. You do not need to send the complete task object.
+
+For example:
+
+```json
+{
+  "status": "done"
+}
+```
+
+<Note>
+At least one of `status`, `title`, or `description` must be provided when updating a task.
+</Note>
+
+## Delete a task
+
+Use `DELETE /tasks/{task_id}` to permanently remove a task.
+
+<Warning>
+Task deletion cannot be undone.
+</Warning>
+
+
+## Related endpoints
+
+Use the [API Reference](/api-reference/overview) when you need exact request parameters, response schemas, or status codes for an individual endpoint.
