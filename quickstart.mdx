@@ -1,0 +1,115 @@
+---
+title: Quickstart
+description: Create a project, add a task, update it, and delete it.
+---
+
+# Quickstart
+
+Follow this workflow to make your first TaskFlow API requests.
+
+<Info>
+The examples use `YOUR_API_KEY`, `PROJECT_ID`, and `TASK_ID` as placeholders. Replace them with values returned by the API.
+</Info>
+
+<Warning>
+The hosted API may take up to 60 seconds to respond to the first request after a period of inactivity.
+</Warning>
+
+## 1. Create a project
+
+Create a project with `POST /projects`.
+
+```bash
+curl -X POST https://test-writechoice.onrender.com/projects \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "API Documentation Revamp",
+    "description": "Rewriting all public-facing API docs."
+  }'
+```
+
+The response contains a `project_id`. Save it for the next request.
+
+```json
+{
+  "project_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "name": "API Documentation Revamp",
+  "description": "Rewriting all public-facing API docs.",
+  "created_at": "2025-05-12T10:30:00.000Z"
+}
+```
+
+## 2. Create a task
+
+Use the `project_id` from the previous response.
+
+```bash
+curl -X POST https://test-writechoice.onrender.com/tasks \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "project_id": "PROJECT_ID",
+    "title": "Write introduction page",
+    "description": "Draft the overview and getting started sections."
+  }'
+```
+
+New tasks start with `pending` status. The response contains a `task_id`.
+
+## 3. List the project's tasks
+
+Use the same `project_id` to retrieve its tasks.
+
+```bash
+curl https://test-writechoice.onrender.com/projects/PROJECT_ID/tasks \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+If the project exists but has no tasks, the API returns an empty `tasks` array.
+
+## 4. Update the task
+
+Use the `task_id` returned when the task was created.
+
+```bash
+curl -X PATCH https://test-writechoice.onrender.com/tasks/TASK_ID \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "status": "in_progress"
+  }'
+```
+
+You can update `status`, `title`, `description`, or any combination of them.
+
+## 5. Delete the task
+
+When you no longer need the task, delete it with:
+
+```bash
+curl -X DELETE https://test-writechoice.onrender.com/tasks/TASK_ID \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+<Warning>
+Deleting a task is permanent and cannot be undone.
+</Warning>
+
+## The complete workflow
+
+```text
+POST /projects
+      │
+      └── project_id
+             │
+             ├── POST /tasks
+             │      │
+             │      └── task_id
+             │             ├── PATCH /tasks/{task_id}
+             │             └── DELETE /tasks/{task_id}
+             │
+             └── GET /projects/{project_id}/tasks
+```
+
+Next, explore the [API Reference](/api-reference/overview) for endpoint-level details and the interactive API playground.
