@@ -1,0 +1,55 @@
+---
+title: Introduction
+description: Learn how TaskFlow API works and how its resources are connected.
+---
+
+# TaskFlow API
+
+TaskFlow is a simple API for managing projects and the tasks that belong to them.
+
+With the API, you can:
+
+- Create projects
+- Create tasks inside projects
+- List a project's tasks
+- Update task details and status
+- Delete tasks
+
+## How the API works
+
+Projects contain tasks. The API is designed around this relationship, so several operations depend on resources created earlier.
+
+```text
+Create project
+     │
+     ▼
+ project_id
+     │
+     ├── Create task
+     │       │
+     │       ▼
+     │     task_id
+     │       │
+     │       ├── Update task
+     │       └── Delete task
+     │
+     └── List project tasks
+```
+
+<Note>
+Create a project before creating a task. Save the returned `project_id`, because you will need it when working with that project's tasks.
+</Note>
+
+<Warning>
+The hosted API may take up to 60 seconds to respond to the first request after a period of inactivity.
+</Warning>
+
+## Base URL
+
+```text
+https://test-writechoice.onrender.com/
+```
+
+## Next steps
+
+Start with [Authentication](/authentication), then follow the [Quickstart](/quickstart) to make your first requests.
